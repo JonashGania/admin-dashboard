@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.grid-container{
+    display: grid;
+    grid-template: 80px 5fr / 250px auto;
+    grid-template-areas: "sidebar header"
+                         "sidebar content";
+}
+.sidebar{
+    grid-area: sidebar;
+}
+.header{
+    grid-area: header;
+}
+.content{
+    grid-area: content;
+}
+.line{
+    width: 1px;
+}
