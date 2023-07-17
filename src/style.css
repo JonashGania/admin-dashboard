@@ -2,21 +2,156 @@
 @tailwind components;
 @tailwind utilities;
 
-.grid-container{
-    display: grid;
-    grid-template: 80px 5fr / 250px auto;
-    grid-template-areas: "sidebar header"
-                         "sidebar content";
+:root{
+    --sidebar-height: 230px;
+}
+
+@layer utilities {
+    @variants responsive {
+     
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+
+      .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none; 
+      }
+    }
+  }
+
+/* .grid-container{ */
+    /* display: grid; */
+    /* grid-template: 80px 5fr / 250px auto; */
+    /* grid-template: auto 1fr / 250px 1fr; */
+    /* grid-template-areas: "sidebar header"
+                         "sidebar content"; */
+/* } */
+html{
+    scroll-behavior: smooth;
+}
+main{
+    position: relative;
+    height: 100vh;
+    width: calc(100% - 230px);
+    left: 230px;
+    transition: all 0.5s ease;
+
+}
+.sidebar.close ~ main{
+    left: 80px;
+    width: calc(100% - 80px);
 }
 .sidebar{
-    grid-area: sidebar;
+    width: var(--sidebar-height);
+    transition: all 0.5s ease;
+    /* grid-area: sidebar;
+    width: 250px;
+    grid-area: 1 / 1 / span 2 / 2; */
+}
+.sidebar.close{
+    width: 80px;   
+}
+.sidebar.close a span{
+    opacity: 0;
+    pointer-events: none;
+}
+.sidebar-link{
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    column-gap: 1.3rem;
+}
+.hidden{
+    display: none;
+    visibility: hidden;
+    opacity: 0;
 }
 .header{
-    grid-area: header;
+    width: calc(100% - 230px);
+    position: fixed;
+    left: 230px;
+    top: 0;
+    transition: all 0.5s ease;
+    /* grid-area: header; */
+    /* grid-area: 1 / 2 / 2 / -1; */
+}
+.sidebar.close ~ main .header{
+    left: 80px;
+    width: calc(100% - 80px);
 }
 .content{
-    grid-area: content;
+
+    /* grid-area: content; */
+    /* grid-area: 2 / 2 / span 2 / span 2;*/
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* grid-template: 50% auto / 1fr 1fr;
+    grid-template-areas: "progress chart"
+                         "timeline timeline";*/
+    column-gap: 5rem;
+    row-gap: 3rem; 
+}
+.progress{
+    grid-column: span 1 /  span 1;
+    box-shadow: 0 0 2px 3px gray;
+    /* grid-area: progress; */
+}
+.circular-progress:before{
+    content: "";
+    position: absolute;
+    height: 75%;
+    width: 75%;
+    background-color: white;
+    border-radius: 50%;
+    stroke-width: 20px;
+    stroke-dasharray: 200;
+}
+.chart{
+    grid-column: span 1 / span 1;
+    /* grid-area: chart; */
+}
+.timeline{
+    grid-column: span 2/ span 2;
+    /* grid-area: timeline; */
+}
+.timeline-date{
+    display: grid;
+    grid-template-columns: repeat(31, minmax(130px, 1fr));
+    justify-items: center;
+    column-gap: 0.9rem;
+}
+.timeline-item{
+    display: grid;
+    grid-template-columns: repeat(31, minmax(130px, 1fr));
+    grid-template-rows: repeat(5,50px);
+    row-gap: .9rem;
+    column-gap: 0.9rem;
+}
+.item1{
+    grid-area: 1 / 1 / span 1 / span 1;
+}
+.item2{
+    grid-area: 2 / 1 / span 1 / span 1;
+}
+.item3{
+    grid-area: 1 / 4 / 1 / span 1;
 }
 .line{
     width: 1px;
+}
+.gantt-chart{
+    scrollbar-width: thin;
+    -ms-overflow-style: scrollbar;
+}
+.gantt-chart::-webkit-scrollbar{
+    width: 2px;
+}
+.gantt-chart::-webkit-scrollbar-thumb{
+    background-color: #999;
+    border-radius: 10px;
+}
+.gantt-chart::-moz-scrollbar-thumb{
+    background-color: #999;
+    border-radius: 10px;
 }
